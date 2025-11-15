@@ -1,0 +1,108 @@
+.container__all {
+  background-image: url("../../assets/ai-generated-8662021_1920.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  .container {
+    width: 800px;
+    height: 500px;
+    outline: 8px solid #383838;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 2px 6px 12px 2px;
+    overflow: hidden;
+
+    .containerImage {
+      width: 450px;
+      height: 500px;
+      background-image: url("../../assets/ai-generated-8662021_1920.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      border-radius: 30px;
+
+      .join-us {
+        transition: ease-in-out 0.3s;
+      }
+      .join-us:hover {
+        scale: 1.03;
+        background-color: #366597;
+        border-color: #366597;
+        box-shadow: 1px 1px 8px 1px #366597;
+      }
+    }
+    .containerForm {
+      width: 350px;
+      background-color: #383838;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      justify-content: space-evenly;
+
+      .content__text {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        overflow: hidden;
+      }
+    }
+    .containerForm::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -48px;
+      width: 200px;
+      height: 100%;
+      background-color: #383838;
+      transform: skewX(-5deg);
+      transform-origin: right;
+      z-index: -1;
+    }
+    .containerForm > form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      input {
+        border-radius: 4px;
+        outline: 0.8px solid #bbbbbb;
+        padding: 10px;
+        width: 300px;
+        height: 40px;
+        font-size: 12px;
+        transition: ease-in-out 0.3s;
+      }
+
+      input:focus {
+        outline: #2a4f7a 1px solid;
+      }
+
+      .btn {
+        background: #2a4f7a;
+        color: #fff;
+        border-radius: 20px;
+        height: 40px;
+        font-size: 12px;
+        transition: ease-in-out 0.2s;
+        width: 100%;
+      }
+      .btn:hover {
+        scale: 1.04;
+        box-shadow: #366597 2px 2px 12px 2px;
+        background-color: #366597;
+      }
+    }
+  }
+}
