@@ -6,7 +6,7 @@
   width: 100%;
   background-color: #383838;
 
-  .container__image {
+ .container__image {
     width: 100%;
     // border-radius: 0 0 10px 10px;
     background-image: url("../../assets/ai-generated-8662021_1920.jpg");
@@ -34,15 +34,28 @@
     .dashboard__list {
       display: flex;
       flex-direction: column;
-      background-color: #2a4f7a;
+      background-color: #2a2a2a;
 
-      li {
+      .dashboard {
         color: #fff;
-        background-color: rgba(255, 255, 255, 0.2);
         height: 60px;
         display: flex;
         padding: 10px;
         align-items: center;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .dashboard:focus {
+        background: #366597;
+      }
+
+      .btn__create__dash {
+        color: #fff;
+        height: 60px;
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.2);
         font-family: "Poppins", sans-serif;
       }
     }

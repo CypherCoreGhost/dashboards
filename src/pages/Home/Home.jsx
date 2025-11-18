@@ -1,80 +1,103 @@
-import { useNavigate } from "react-router-dom";
-import "./Home.scss";
-import { useEffect, useState } from "react";
+import {
+  createDashboard,
+  fetchDashboard,
+  getAllDashboards,
+} from '../../api/fetchDashboard';
+import {
+  Chart as ChartJS,
+  Legend,
+  Tooltip,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js';
+import './Home.scss';
+import Modal from '../../components/HomeComponents/Modal';
+import ContainerDashboard from '../../components/HomeComponents/ContainerDashboard';
+import { useEffect, useState } from 'react';
+ChartJS.register(Legend, Tooltip, CategoryScale, LinearScale, BarElement);
 
-const dashboards = [
-  {
-    name: "dashboard1",
-    id: 123,
-  },
-  {
-    name: "dashboard2",
-    id: 456,
-  },
-];
-
-async function fetchDashboard(id) {
-  const newDash = dashboards.filter((dash) => dash.id === id);
-  console.log(newDash);
-  return newDash;
-}
+const dashboards = await getAllDashboards();
 
 function Home() {
-  const [dashboardDisplay, setDashboardDisplay] = useState({
+  const [newDashboard, setNewDashboard] = useState({
     id: null,
+    desc: null,
+    labels: null, //definivel
+    datasets: [
+      {
+        label: null, // definivel;
+        data: null, //definivel
+        backgroundColor: null, //definnivel
+      },
+    ],
   });
 
-  const [dashboardData, setDashboardData] = useState({
-    name: "",
-    id: "",
-  });
-  const navigate = useNavigate();
+  const options = {};
+  const [dashboardDisplay, setDashboardDisplay] = useState(null);
 
-  const handleNavigate = (id) => {
-    navigate(`/dashboard/${id}`);
-  };
-
-  function handleActiveDashboard() {
-    console.log("a");
+  function handleCreateDashboard(e) {
+    e.preventDefault();
+    createDasboard(newDashboard);
   }
 
+  const [createDash, setCreateDash] = useState(false);
+  function handleCreateDash() {
+    setCreateDash((prev) => !prev);
+  }
+
+  const [dashboardData, setDashboardData] = useState({
+    id: null,
+    desc: '',
+    data: null,
+  });
+
   useEffect(() => {
-    if (dashboardDisplay.id) {
-      fetchDashboard(dashboardDisplay.id).then((data) => {
-        console.log(data);
-        setDashboardData({ name: "a", id: "3" });
+    if (dashboardDisplay) {
+      fetchDashboard(dashboardDisplay).then((data) => {
+        if (!data) return;
+        setDashboardData({
+          id: data.id,
+          desc: data.desc,
+          data: {
+            labels: data.labels, //definivel
+            datasets: [
+              {
+                label: data.datasets[0].label, // definivel
+                data: data.datasets[0].data, //definivel
+                backgroundColor: data.datasets[0].backgroundColor, //definnivel
+              },
+            ],
+          },
+        });
       });
     }
-  }, [dashboardDisplay.id]);
+  }, [dashboardDisplay]);
 
   return (
     <div>
       <div className="container__page ">
-        <div className="container__image w-[100vw] h-[400px] bg-slate-200">
-          <h1 className="">Text</h1>
-        </div>
-        <div className="container__dashboard__infos">
-          <ul className="dashboard__list w-[300px] h-[400px]">
-            {dashboards.map((dashboard) => (
-              <li
-                key={dashboard.id}
-                onClick={() =>
-                  setDashboardDisplay((prev) => ({
-                    ...prev,
-                    id: dashboard.id,
-                  }))
-                }
-              >
-                {dashboard.name}
-              </li>
-            ))}
-          </ul>
+        {createDash && (
+          <Modal
+            setNewDashboard={setNewDashboard}
+            setCreateDash={setCreateDash}
+            createDash={createDash}
+            handleCreateDashboard={handleCreateDashboard}
+            newDashboard={newDashboard}
+          />
+        )}
 
-          <div className="content__dashboard">
-            {dashboardData && <p>{dashboardData.name}</p>}
-            <button onClick={() => setDashboardDisplay({ id: null })}></button>
-          </div>
+        <div className="container__image w-[100%] min-h-[200px] bg-slate-200">
+          <h1 className="">Welcome</h1>
         </div>
+
+        <ContainerDashboard
+          dashboards={dashboards}
+          setDashboardDisplay={setDashboardDisplay}
+          dashboardData={dashboardData}
+          handleCreateDash={handleCreateDash}
+          options={options}
+        />
       </div>
     </div>
   );

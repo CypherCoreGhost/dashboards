@@ -1,0 +1,32 @@
+
+.modal__container{
+
+    .form__modal{
+        background-color:#383838;
+        width:500px;
+        form{
+            display:grid;
+            grid-template-columns: repeat(2,1fr);
+            font-family: 'Poppins', sans-serif;
+            .input__modal{
+                height:40px;
+                border-radius:6px;
+                background-color: #222222;
+                border:none;
+                outline:none;
+                transition: ease-in-out 0.2s;
+                color:#fff;
+                padding:5px;
+            }
+            .input__modal:focus{
+                background-color: #424242;
+                border: 1px solid #505050;
+            }
+            .btn-createDashboard{
+                background-color:#4ba47b;
+                border-radius:10px;
+                grid-column: 1 / span 2;
+            }
+        }
+    }
+}
